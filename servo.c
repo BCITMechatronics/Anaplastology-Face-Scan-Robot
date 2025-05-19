@@ -36,7 +36,9 @@ int servoPos(unsigned int angleInDeg)
     int check = 0;
     long int cycles = 0;
     //servo needs a 50Hz signal to work
-    //cycles = round(angleInDeg*PWM_FREQUENCY/180.0/10);
+    
+    //This is the equation that we derived to work for the servo we used
+    //Another servo will most likely need to be purchased and therfore this equation will change as well
     cycles = -11 *angleInDeg+1500;
     //test input
     TA0CCR1 = cycles;
