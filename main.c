@@ -304,18 +304,22 @@ int main(void)
                     //enable the panic button emergency interrupt
                     P1IE |= SOFT_STP;
 
-                    //Moves the motor until it reaches 180 degree around the patient
+                    //The following sequence of actions for scanning is more for testing purposes for the expo
+                    //It will need to change to follow the state machine diagram
+                    //Moves the ring until it reaches 180 degree around the patient
                     while((enc.count[RING_MOTOR] < 10700) && !emergencyFlg)
                     {
                         drive(RING_MOTOR,DRIVE_DUTY,CCW);
                     }
                     brake(RING_MOTOR);
                     __delay_cycles(125000);
+                    //Moves the ring in the other direction until it reaches -180 degrees
                    while((enc.count[RING_MOTOR] > -10700)  && !emergencyFlg)
                     {
-                        drive(RING_MOTOR,DRIVE_DUTY,CCW);
+                        drive(RING_MOTOR,DRIVE_DUTY,CW);
                     }
                     brake(RING_MOTOR);
+                    //Move the ring until it returns to the home condition
                     while(P2IN&RING_SW)
                     {
                         drive(RING_MOTOR,DRIVE_DUTY,CW);
